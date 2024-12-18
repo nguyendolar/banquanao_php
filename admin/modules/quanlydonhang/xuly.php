@@ -7,9 +7,12 @@
     $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
 	if(isset($_GET['code'])){
 		$code_cart = $_GET['code'];
-		$sql_update ="UPDATE tbl_cart SET cart_status=0 WHERE code_cart='".$code_cart."'";
+        $sts = $_GET['sts'];
+		$sql_update ="UPDATE tbl_cart SET cart_status='".$sts."' WHERE code_cart='".$code_cart."'";
 		$query = mysqli_query($mysqli,$sql_update);
 
+        if($sts == 0)
+        {
 		//thong ke doanh thu
         $sql_lietke_dh = "SELECT * FROM tbl_cart_details,tbl_sanpham WHERE tbl_cart_details.id_sanpham=tbl_sanpham.id_sanpham AND tbl_cart_details.code_cart='$code_cart' ORDER BY tbl_cart_details.id_cart_details DESC";
         $query_lietke_dh = mysqli_query($mysqli,$sql_lietke_dh);
@@ -44,6 +47,7 @@
                 $sql_update_thongke = mysqli_query($mysqli,"UPDATE tbl_thongke SET soluongban='$soluongban',doanhthu='$doanhthuss',gianhap = '$gianhaps',loinhuan = '$loinhuan' ,donhang='$donhang' WHERE ngaydat='$now'" );
             }
         }
+    }
 		header('Location:../../index.php?action=quanlydonhang&query=lietke');
 	} 
 ?>

@@ -53,9 +53,18 @@ if($page == '' || $page == 1){
     
     <td>
     	<?php if($row['cart_status']==1){
-    		echo '<a href="modules/quanlydonhang/xuly.php?code='.$row['code_cart'].'"><button  class="btn btn-primary">Đơn hàng mới</button></a>';
-    	}else{
-    		echo '<button  class="btn btn-secondary">Đã xác nhận</button>';
+    		echo '<a href="modules/quanlydonhang/xuly.php?sts=2&&code='.$row['code_cart'].'"><button  class="btn btn-primary">Xác nhận đơn hàng</button></a>';
+    	}
+      else 
+      if($row['cart_status']==2){
+    		echo '<a href="modules/quanlydonhang/xuly.php?sts=3&&code='.$row['code_cart'].'"><button  class="btn btn-primary">Đang giao hàng</button></a>';
+    	}
+      else 
+      if($row['cart_status']==3){
+    		echo '<a href="modules/quanlydonhang/xuly.php?sts=0&&code='.$row['code_cart'].'"><button  class="btn btn-primary">Giao hàng thành công</button></a>';
+    	}
+      else{
+    		echo '<button  class="btn btn-secondary">Đã hoàn thành</button>';
     	}
     	?>
     </td>

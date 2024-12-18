@@ -37,17 +37,17 @@
         $i = 0;
         $tongtien = 0;
         $tienlai =0;
-        while($row = mysqli_fetch_array($query_ct_dh)){
+        while($rowct = mysqli_fetch_array($query_ct_dh)){
             $i++;
-            $thanhtien = $row['giamgia']*$row['soluongmua'];
+            $thanhtien = $rowct['giamgia']*$rowct['soluongmua'];
             $tongtien += $thanhtien ;
-            $tienlaia = $row['gianhap'] * $row['soluongmua'];
+            $tienlaia = $rowct['gianhap'] * $rowct['soluongmua'];
             $tienlai+= $tienlaia;
             $lai= $tongtien - $tienlai;
             $lais=$thanhtien - $tienlaia
         ?>
-        <img style="width:50px;max-height:80px;" src = "admin/modules/quanlysp/uploads/<?php echo $row['hinhanh'] ?>">
-        <?php echo $row['tensanpham'] ?> x <?php echo $row['soluongmua'] ?>
+        <img style="width:50px;max-height:80px;" src = "admin/modules/quanlysp/uploads/<?php echo $rowct['hinhanh'] ?>">
+        <?php echo $rowct['tensanpham'] ?> x <?php echo $rowct['soluongmua'] ?>
         <br>
         <?php
         } 
@@ -55,10 +55,17 @@
     </td>
     <td><?php echo number_format($tongtien,0,',','.').'vnđ' ?></td>
     <td>
-    	<?php if($row['cart_status']==1){
-    		echo 'Đơn hàng mới';
-    	}else{
+    <?php if($row['cart_status']==1){
+    		echo 'Chờ xác nhận';
+    	}
+      else if($row['cart_status']==2){
     		echo 'Đã xác nhận';
+    	}
+      else if($row['cart_status']==3){
+    		echo 'Đang giao hàng';
+    	}
+      else{
+    		echo 'Đã hoàn thành';
     	}
     	?>
     </td>
